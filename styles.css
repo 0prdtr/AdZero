@@ -1,0 +1,66 @@
+
+:root {
+    --background-light: #f0f0f0;
+    --background-dark: #1a1a1a;
+    --text-light: #000;
+    --text-dark: #fff;
+}
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--background-light);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.title {
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+button {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+main {
+    padding: 20px;
+}
+
+#web-frame {
+    width: 100%;
+    height: 600px;
+    border: none;
+    margin-top: 10px;
+}
+
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+body.dark-mode header {
+    background-color: var(--background-dark);
+}
+
+body.dark-mode #web-frame {
+    border-color: var(--text-dark);
+}
