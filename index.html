@@ -1,6 +1,5 @@
 <html><head><base href="https://webviewer.pro/"><title>AdZero - Dark Mode</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
 :root {
-    /* Modo claro */
     --primary: #2196F3;
     --dark: #1976D2;
     --light: #BBDEFB;
@@ -8,6 +7,7 @@
     --background: #f5f5f5;
     --card-bg: white;
     --header-text: white;
+    --primary-rgb: 33, 150, 243;
 }
 
 /* Modo oscuro */
@@ -18,7 +18,7 @@
     --text: #FFFFFF;
     --background: #121212;
     --card-bg: #1E1E1E;
-    --header-text: #FFFFFF;
+    --primary-rgb: 21, 101, 192;
 }
 
 body {
@@ -34,29 +34,32 @@ body {
 }
 
 .header {
-    background: var(--primary);
-    color: var(--header-text);
-    padding: 1rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--dark));
+    padding: 1.2rem;
 }
 
 .logo-title {
     display: flex;
     align-items: center;
-    gap: 10px; /* Reduced from 15px to bring logo closer to title */
+    gap: 12px;
 }
 
 .logo {
-    width: 45px; /* Increased from 40px */
-    height: 45px; /* Increased from 40px */
+    width: 48px;
+    height: 48px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
 }
 
 h1 {
     margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .theme-switch-wrapper {
@@ -124,27 +127,38 @@ input:checked + .slider:before {
 
 .url-input {
     flex-grow: 1;
-    padding: 12px;
-    border: 2px solid var(--light);
-    border-radius: 5px;
-    font-size: 16px;
-    background: var(--card-bg);
-    color: var(--text);
+    padding: 14px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.url-input:focus {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+    outline: 2px solid var(--primary);
 }
 
 .btn {
     background: var(--primary);
     color: var(--header-text);
     border: none;
-    padding: 12px 25px;
+    padding: 14px 28px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
 }
 
 .viewer-container {
@@ -157,13 +171,12 @@ input:checked + .slider:before {
 .tabs {
     display: flex;
     gap: 5px;
-    background: var(--card-bg);
-    padding: 10px;
-    border-radius: 5px 5px 0 0;
+    background: transparent;
+    padding: 15px 15px 0;
 }
 
 .tab {
-    padding: 10px 20px;
+    padding: 12px 24px;
     background: var(--light);
     border: none;
     border-radius: 5px;
@@ -172,10 +185,18 @@ input:checked + .slider:before {
     align-items: center;
     gap: 10px;
     color: var(--header-text);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.tab:hover {
+    opacity: 0.9;
 }
 
 .tab.active {
-    background: var(--primary);
+    opacity: 1;
+    transform: translateY(-2px);
 }
 
 .close-tab {
@@ -185,6 +206,12 @@ input:checked + .slider:before {
     cursor: pointer;
     padding: 0;
     font-size: 18px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.close-tab:hover {
+    opacity: 1;
 }
 
 .web-frame {
@@ -205,21 +232,36 @@ iframe {
 .stats-panel {
     width: 250px;
     background: var(--card-bg);
-    border-radius: 5px;
-    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 20px;
 }
 
 .stat-item {
     margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    background: rgba(var(--primary-rgb), 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
 }
 
 .stat-title {
     font-weight: 500;
     margin-bottom: 5px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
 }
 
 .stat-value {
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 5px;
     color: var(--primary);
 }
 
@@ -264,6 +306,66 @@ iframe {
         height: 500px;
     }
 }
+
+.dns-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--dark);
+}
+
+.dns-icon {
+    font-size: 1.2em;
+}
+
+.dns-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.dns-modal-content {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dns-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.dns-option {
+    padding: 12px;
+    border: 2px solid var(--primary);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dns-option:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.dns-option.active {
+    background: var(--primary);
+    color: white;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -289,6 +391,9 @@ iframe {
         <div class="controls">
             <input type="url" class="url-input" id="urlInput" placeholder="Ingresa una URL para ver (ej: https://ejemplo.com)">
             <button class="btn" onclick="addTab()">Abrir página</button>
+            <button class="btn dns-btn" onclick="toggleDnsModal()">
+                <span class="dns-icon">🔒</span> DNS
+            </button>
         </div>
         
         <div class="viewer-container">
@@ -323,6 +428,19 @@ iframe {
         </div>
     </div>
 
+    <div id="dnsModal" class="dns-modal">
+        <div class="dns-modal-content">
+            <h3>Configuración DNS</h3>
+            <p>DNS actual: <span id="currentDns">dns.adguard.com</span></p>
+            <div class="dns-options">
+                <button class="dns-option active" onclick="setDns('dns.adguard.com')">AdGuard DNS</button>
+                <button class="dns-option" onclick="setDns('dns.google.com')">Google DNS</button>
+                <button class="dns-option" onclick="setDns('1.1.1.1')">Cloudflare DNS</button>
+            </div>
+            <button class="btn" onclick="toggleDnsModal()">Cerrar</button>
+        </div>
+    </div>
+
 <script>
 let tabs = [];
 let currentTabIndex = -1;
@@ -332,6 +450,8 @@ let stats = {
     savedData: 0,
     savedTime: 0
 };
+
+let currentDns = 'dns.adguard.com';
 
 // Tema oscuro
 const themeSwitch = document.getElementById('themeSwitch');
@@ -423,11 +543,15 @@ function loadCurrentTab() {
         return;
     }
 
+    // Add DNS parameter to URL
+    let url = new URL(tabs[currentTabIndex].url);
+    url.searchParams.set('dns', currentDns);
+
     frameContainer.innerHTML = `
         <div class="loading-overlay">
             <div class="spinner"></div>
         </div>
-        <iframe id="webFrame" src="${tabs[currentTabIndex].url}" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        <iframe id="webFrame" src="${url.toString()}" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
     `;
 
     const iframe = document.getElementById('webFrame');
@@ -468,5 +592,26 @@ function updateStats() {
 
 // Inicializar estadísticas
 updateStats();
+
+function toggleDnsModal() {
+    const modal = document.getElementById('dnsModal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function setDns(dns) {
+    currentDns = dns;
+    document.getElementById('currentDns').textContent = dns;
+    
+    // Update active state of DNS options
+    const options = document.querySelectorAll('.dns-option');
+    options.forEach(option => {
+        option.classList.toggle('active', option.textContent.includes(dns));
+    });
+    
+    // Reload current tab with new DNS
+    if (currentTabIndex !== -1) {
+        loadCurrentTab();
+    }
+}
 </script>
 </body></html>
