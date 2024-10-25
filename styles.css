@@ -75,13 +75,12 @@ input[type="text"] {
 /* ...otras reglas CSS... */
 
 #web-frame {
-    width: 1200px; /* Aumentar el ancho a un 90% o ajustarlo al 100% según prefieras */
-    height: 700px;
+    width: 1200px; /* Añadí 'px' para la medida del ancho */
+    height: 600px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-left: 10px;
-    align-content: 10px;
+    margin: 10px auto; /* Esto centra el iframe horizontalmente */
+    display: block; /* Asegura que se comporte como un bloque */
 }
 
 .dns-options, .web-viewer {
