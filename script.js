@@ -1,21 +1,63 @@
-// Modo oscuro
-const toggleButton = document.getElementById('dark-mode-toggle');
-const body = document.body;
-
-toggleButton.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
+// Código existente
+document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 });
 
-// Función para cargar una URL en el iframe
-const loadUrlButton = document.getElementById('load-url-button');
-const urlInput = document.getElementById('url-input');
-const webFrame = document.getElementById('web-frame');
-
-loadUrlButton.addEventListener('click', () => {
-    const url = urlInput.value.trim();
+// Cargar URL en iframe
+document.getElementById('load-url-button').addEventListener('click', () => {
+    const url = document.getElementById('url-input').value;
     if (url) {
-        webFrame.src = url.startsWith('http') ? url : `https://${url}`;
+        document.getElementById('web-frame').src = url;
     }
+});
+
+// Bloqueador avanzado de anuncios
+function advancedAdBlock() {
+    // Array de selectores CSS comúnmente utilizados por anuncios y pop-ups avanzados
+    const adSelectors = [
+        '.ad', 
+        '.advertisement', 
+        '[id*="ad"]', 
+        '[class*="ad"]', 
+        '[class*="banner"]', 
+        '[id*="popup"]',
+        '.modal',
+        '[class*="popup"]',
+        '[id*="modal"]',
+        '[class*="sponsored"]',
+        '[class*="promo"]',
+        '.ad-content'
+    ];
+
+    // Eliminar elementos seleccionados del DOM
+    adSelectors.forEach(selector => {
+        const ads = document.querySelectorAll(selector);
+        ads.forEach(ad => ad.remove());
+    });
+
+    // Observador de mutación para eliminar elementos nuevos que aparezcan después de cargar la página
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Verifica si es un elemento
+                    adSelectors.forEach(selector => {
+                        if (node.matches(selector) || node.querySelector(selector)) {
+                            node.remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Configurar el observador de mutación
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Ejecutar bloqueador avanzado de anuncios
+document.getElementById('web-frame').addEventListener('load', () => {
+    const iframe = document.getElementById('web-frame');
+    iframe.contentWindow.eval(`(${advancedAdBlock.toString()})()`);
 });
 
 // Neutraliza scripts que verifican la carga de anuncios
