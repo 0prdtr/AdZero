@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="DALL·E 2024-10-24 21.15.14 - A modern logo design for 'AdZero'.png" alt="AdZero Logo" class="logo">
+            <img src="folder/AdZero.png" alt="AdZero Logo" class="logo">
             <h1 class="title">AdZero</h1>
         </div>
         <button id="dark-mode-toggle">Dark Mode</button>
@@ -18,7 +17,8 @@
     <main>
         <section class="dns-options">
             <h2>DNS Protection</h2>
-            <select id="dns-selector">
+            <select id="dns-selector" onchange="changeDNS(this.value)">
+                <option value="default">Choose a DNS</option>
                 <option value="adguard">AdGuard DNS</option>
                 <option value="google">Google DNS</option>
                 <option value="cloudflare">Cloudflare DNS</option>
@@ -27,7 +27,7 @@
         
         <section class="web-viewer">
             <h2>Secure Browsing</h2>
-            <iframe src="https://example.com" sandbox="allow-same-origin allow-scripts"></iframe>
+            <iframe src="https://example.com" id="web-frame" sandbox="allow-same-origin allow-scripts"></iframe>
         </section>
     </main>
 

@@ -68,3 +68,12 @@ body.dark-mode #web-frame {
 .adblock-message, .adblock-warning, #adblock-notification {
     display: none !important;
 }
+/* Estilos adicionales para evitar mensajes de detección */
+.adblock-message, 
+.adblock-warning, 
+#adblock-notification, 
+#blocker-warning,
+.ad-content, 
+.ad-warning {
+    display: none !important;
+}
