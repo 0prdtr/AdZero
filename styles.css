@@ -79,7 +79,8 @@ input[type="text"] {
     height: 700px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
     align-content: center;
 }
 
