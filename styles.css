@@ -81,7 +81,7 @@ input[type="text"] {
     border-radius: 5px;
     margin-top: 10px;
     margin-left: 10px;
-    align-content: auto;
+    align-content: 10px;
 }
 
 .dns-options, .web-viewer {
