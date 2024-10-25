@@ -64,3 +64,7 @@ body.dark-mode header {
 body.dark-mode #web-frame {
     border-color: var(--text-dark);
 }
+/* Ejemplo CSS para ocultar mensajes de detección de adblock */
+.adblock-message, .adblock-warning, #adblock-notification {
+    display: none !important;
+}
