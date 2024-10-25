@@ -76,7 +76,7 @@ input[type="text"] {
 
 #web-frame {
     width: 90%; /* Aumentar el ancho a un 90% o ajustarlo al 100% según prefieras */
-    height: 600px;
+    height: 800px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-top: 20px;
