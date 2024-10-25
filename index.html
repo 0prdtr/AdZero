@@ -1,617 +1,485 @@
-<html><head><base href="https://webviewer.pro/"><title>AdZero - Dark Mode</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
-:root {
-    --primary: #2196F3;
-    --dark: #1976D2;
-    --light: #BBDEFB;
-    --text: #212121;
-    --background: #f5f5f5;
-    --card-bg: white;
-    --header-text: white;
-    --primary-rgb: 33, 150, 243;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <base href="https://webviewer.pro/">
+    <title>AdZero - Dark Mode</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Variables de tema claro y oscuro */
+        :root {
+            --primary: #2196F3;
+            --dark: #1976D2;
+            --light: #BBDEFB;
+            --text: #212121;
+            --background: #f5f5f5;
+            --card-bg: white;
+            --header-text: white;
+            --primary-rgb: 33, 150, 243;
+        }
 
-/* Modo oscuro */
-[data-theme="dark"] {
-    --primary: #1565C0;
-    --dark: #0D47A1;
-    --light: #1E88E5;
-    --text: #FFFFFF;
-    --background: #121212;
-    --card-bg: #1E1E1E;
-    --primary-rgb: 21, 101, 192;
-}
+        [data-theme="dark"] {
+            --primary: #1565C0;
+            --dark: #0D47A1;
+            --light: #1E88E5;
+            --text: #FFFFFF;
+            --background: #121212;
+            --card-bg: #1E1E1E;
+            --primary-rgb: 21, 101, 192;
+        }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--background);
-    color: var(--text);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-}
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
 
-.header {
-    background: linear-gradient(135deg, var(--primary), var(--dark));
-    padding: 1.2rem;
-}
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 1.2rem;
+        }
 
-.logo-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
+        .logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
 
-.logo:hover {
-    transform: scale(1.1);
-}
+        .logo:hover {
+            transform: scale(1.1);
+        }
 
-h1 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
-.theme-switch-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.theme-switch {
-    display: inline-block;
-    height: 34px;
-    position: relative;
-    width: 60px;
-}
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
 
-.theme-switch input {
-    display: none;
-}
+        .theme-switch input {
+            display: none;
+        }
 
-.slider {
-    background-color: #ccc;
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: .4s;
-    border-radius: 34px;
-}
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+        }
 
-.slider:before {
-    background-color: white;
-    bottom: 4px;
-    content: "";
-    height: 26px;
-    left: 4px;
-    position: absolute;
-    transition: .4s;
-    width: 26px;
-    border-radius: 50%;
-}
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+            border-radius: 50%;
+        }
 
-input:checked + .slider {
-    background-color: var(--dark);
-}
+        input:checked + .slider {
+            background-color: var(--dark);
+        }
 
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-.url-input {
-    flex-grow: 1;
-    padding: 14px;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
+        .url-input {
+            flex-grow: 1;
+            padding: 14px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-.url-input:focus {
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    transform: translateY(-1px);
-    outline: 2px solid var(--primary);
-}
+        .url-input:focus {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+            outline: 2px solid var(--primary);
+        }
 
-.btn {
-    background: var(--primary);
-    color: var(--header-text);
-    border: none;
-    padding: 14px 28px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
+        .btn {
+            background: var(--primary);
+            color: var(--header-text);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
 
-.btn:active {
-    transform: translateY(0);
-}
+        .btn:active {
+            transform: translateY(0);
+        }
 
-.viewer-container {
-    display: flex;
-    flex-grow: 1;
-    gap: 20px;
-    height: calc(100vh - 200px);
-}
+        .viewer-container {
+            display: flex;
+            flex-grow: 1;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
 
-.tabs {
-    display: flex;
-    gap: 5px;
-    background: transparent;
-    padding: 15px 15px 0;
-}
+        .tabs {
+            display: flex;
+            gap: 5px;
+            background: transparent;
+            padding: 15px 15px 0;
+        }
 
-.tab {
-    padding: 12px 24px;
-    background: var(--light);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--header-text);
-    font-weight: 500;
-    transition: all 0.2s ease;
-    opacity: 0.7;
-}
+        .tab {
+            padding: 12px 24px;
+            background: var(--light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--header-text);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
 
-.tab:hover {
-    opacity: 0.9;
-}
+        .tab:hover {
+            opacity: 0.9;
+        }
 
-.tab.active {
-    opacity: 1;
-    transform: translateY(-2px);
-}
+        .tab.active {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
 
-.close-tab {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    padding: 0;
-    font-size: 18px;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-}
+        .close-tab {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 0;
+            font-size: 18px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
 
-.close-tab:hover {
-    opacity: 1;
-}
+        .close-tab:hover {
+            opacity: 1;
+        }
 
-.web-frame {
-    flex-grow: 1;
-    background: var(--card-bg);
-    border-radius: 0 0 5px 5px;
-    overflow: hidden;
-    position: relative;
-}
+        .web-frame {
+            flex-grow: 1;
+            background: var(--card-bg);
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+            position: relative;
+        }
 
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: white;
-}
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
 
-.stats-panel {
-    width: 250px;
-    background: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-}
+        .stats-panel {
+            width: 250px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
 
-.stat-item {
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    background: rgba(var(--primary-rgb), 0.1);
-    transition: transform 0.3s ease;
-}
+        .stat-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(var(--primary-rgb), 0.1);
+            transition: transform 0.3s ease;
+        }
 
-.stat-item:hover {
-    transform: translateY(-2px);
-}
+        .stat-item:hover {
+            transform: translateY(-2px);
+        }
 
-.stat-title {
-    font-weight: 500;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
-}
+        .stat-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
 
-.stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    margin-top: 5px;
-    color: var(--primary);
-}
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 5px;
+            color: var(--primary);
+        }
 
-.loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(var(--background), 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(var(--background), 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid var(--light);
-    border-top: 5px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-@media (max-width: 768px) {
-    .viewer-container {
-        flex-direction: column;
-        height: auto;
-    }
-    
-    .stats-panel {
-        width: auto;
-    }
-    
-    .web-frame {
-        height: 500px;
-    }
-}
+        @media (max-width: 768px) {
+            .viewer-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .stats-panel {
+                width: auto;
+            }
+            
+            .web-frame {
+                height: 500px;
+            }
+        }
 
-.dns-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--dark);
-}
+        .dns-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--dark);
+        }
 
-.dns-icon {
-    font-size: 1.2em;
-}
+        .dns-icon {
+            font-size: 1.2em;
+        }
 
-.dns-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
+        .dns-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
 
-.dns-modal-content {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
+        .dns-modal-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-.dns-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
-}
+        .dns-modal-content h2 {
+            margin-top: 0;
+        }
 
-.dns-option {
-    padding: 12px;
-    border: 2px solid var(--primary);
-    border-radius: 5px;
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .dns-modal-content button {
+            background: var(--primary);
+        }
 
-.dns-option:hover {
-    background: var(--primary);
-    color: white;
-}
-
-.dns-option.active {
-    background: var(--primary);
-    color: white;
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+    <header class="header">
+        <div class="container">
             <div class="logo-title">
+                <img src="https://placehold.co/48x48" class="logo" alt="Logo del Navegador">
                 <h1>AdZero</h1>
-                <img src="/a/b83248e3-6678-4af0-ab59-fed10ed80134" alt="AdZero logo" class="logo">
             </div>
             <div class="theme-switch-wrapper">
-                <span>🌞</span>
                 <label class="theme-switch">
                     <input type="checkbox" id="themeSwitch">
                     <span class="slider"></span>
                 </label>
-                <span>🌙</span>
             </div>
         </div>
-    </div>
-    
+    </header>
+
     <div class="container">
         <div class="controls">
-            <input type="url" class="url-input" id="urlInput" placeholder="Ingresa una URL para ver (ej: https://ejemplo.com)">
-            <button class="btn" onclick="addTab()">Abrir página</button>
-            <button class="btn dns-btn" onclick="toggleDnsModal()">
-                <span class="dns-icon">🔒</span> DNS
-            </button>
+            <input type="text" class="url-input" placeholder="Ingresa la URL">
+            <button class="btn" onclick="loadCurrentTab()">Cargar</button>
         </div>
-        
+
         <div class="viewer-container">
-            <div style="flex-grow: 1; display: flex; flex-direction: column;">
-                <div class="tabs" id="tabsContainer">
-                    <!-- Las pestañas se agregarán aquí dinámicamente -->
-                </div>
-                <div class="web-frame" id="frameContainer">
-                    <!-- El iframe se agregará aquí dinámicamente -->
+            <div class="tabs"></div>
+
+            <div class="web-frame">
+                <iframe id="webFrame" sandbox="allow-same-origin allow-forms"></iframe>
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="spinner"></div>
                 </div>
             </div>
-            
+
             <div class="stats-panel">
-                <h3>Estadísticas de bloqueo</h3>
                 <div class="stat-item">
-                    <div class="stat-title">Anuncios bloqueados</div>
-                    <div class="stat-value" id="blockedAds">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-title">Pop-ups bloqueados</div>
-                    <div class="stat-value" id="blockedPopups">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-title">Datos ahorrados</div>
-                    <div class="stat-value" id="savedData">0 MB</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-title">Tiempo ahorrado</div>
-                    <div class="stat-value" id="savedTime">0s</div>
+                    <div class="stat-title">Anuncios Bloqueados</div>
+                    <div class="stat-value" id="blockedAdsCount">0</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="dnsModal" class="dns-modal">
-        <div class="dns-modal-content">
-            <h3>Configuración DNS</h3>
-            <p>DNS actual: <span id="currentDns">dns.adguard.com</span></p>
-            <div class="dns-options">
-                <button class="dns-option active" onclick="setDns('dns.adguard.com')">AdGuard DNS</button>
-                <button class="dns-option" onclick="setDns('dns.google.com')">Google DNS</button>
-                <button class="dns-option" onclick="setDns('1.1.1.1')">Cloudflare DNS</button>
-            </div>
-            <button class="btn" onclick="toggleDnsModal()">Cerrar</button>
-        </div>
-    </div>
-
-<script>
-let tabs = [];
-let currentTabIndex = -1;
-let stats = {
-    blockedAds: 0,
-    blockedPopups: 0,
-    savedData: 0,
-    savedTime: 0
-};
-
-let currentDns = 'dns.adguard.com';
-
-// Tema oscuro
-const themeSwitch = document.getElementById('themeSwitch');
-
-// Verificar si hay una preferencia guardada
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeSwitch.checked = true;
-}
-
-themeSwitch.addEventListener('change', function(e) {
-    if (e.target.checked) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-    }
-});
-
-function addTab() {
-    const urlInput = document.getElementById('urlInput');
-    const url = urlInput.value.trim();
-    
-    if (url && isValidUrl(url)) {
-        tabs.push({
-            url: url,
-            title: url.split('/')[2] // Usar el dominio como título inicial
-        });
-        currentTabIndex = tabs.length - 1;
-        updateTabs();
-        loadCurrentTab();
-        urlInput.value = '';
-    } else {
-        alert('Por favor ingresa una URL válida');
-    }
-}
-
-function isValidUrl(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
-function updateTabs() {
-    const tabsContainer = document.getElementById('tabsContainer');
-    tabsContainer.innerHTML = '';
-    
-    tabs.forEach((tab, index) => {
-        const tabElement = document.createElement('button');
-        tabElement.className = `tab ${index === currentTabIndex ? 'active' : ''}`;
-        tabElement.innerHTML = `
-            <span>${tab.title}</span>
-            <button class="close-tab" onclick="closeTab(${index})">&times;</button>
-        `;
-        tabElement.onclick = (e) => {
-            if (!e.target.classList.contains('close-tab')) {
-                switchTab(index);
-            }
+    <script>
+        const tabs = [];
+        let currentTabIndex = 0;
+        let stats = {
+            blockedAds: 0,
         };
-        tabsContainer.appendChild(tabElement);
-    });
-}
 
-function closeTab(index) {
-    tabs.splice(index, 1);
-    if (currentTabIndex >= tabs.length) {
-        currentTabIndex = tabs.length - 1;
-    }
-    updateTabs();
-    loadCurrentTab();
-}
-
-function switchTab(index) {
-    currentTabIndex = index;
-    updateTabs();
-    loadCurrentTab();
-}
-
-function loadCurrentTab() {
-    const frameContainer = document.getElementById('frameContainer');
-    
-    if (currentTabIndex === -1 || !tabs[currentTabIndex]) {
-        frameContainer.innerHTML = '<div style="padding: 20px;">No hay páginas abiertas</div>';
-        return;
-    }
-
-    // Add DNS parameter to URL
-    let url = new URL(tabs[currentTabIndex].url);
-    url.searchParams.set('dns', currentDns);
-
-    frameContainer.innerHTML = `
-        <div class="loading-overlay">
-            <div class="spinner"></div>
-        </div>
-        <iframe id="webFrame" src="${url.toString()}" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-    `;
-
-    const iframe = document.getElementById('webFrame');
-    iframe.onload = () => {
-        const overlay = frameContainer.querySelector('.loading-overlay');
-        overlay.style.display = 'none';
-        
-        try {
-            tabs[currentTabIndex].title = iframe.contentDocument.title || tabs[currentTabIndex].url.split('/')[2];
-            updateTabs();
-        } catch (e) {
-            console.log('No se pudo acceder al título de la página');
+        function updateTabs() {
+            const tabsContainer = document.querySelector('.tabs');
+            tabsContainer.innerHTML = '';
+            tabs.forEach((tab, index) => {
+                const tabButton = document.createElement('button');
+                tabButton.classList.add('tab');
+                if (index === currentTabIndex) tabButton.classList.add('active');
+                tabButton.innerHTML = `${tab.title} <button class="close-tab" onclick="closeTab(${index})">&times;</button>`;
+                tabsContainer.appendChild(tabButton);
+            });
         }
 
-        simulateAdBlocking();
-    };
-}
+        function loadCurrentTab() {
+            const urlInput = document.querySelector('.url-input');
+            const iframe = document.getElementById('webFrame');
+            const overlay = document.getElementById('loadingOverlay');
 
-function simulateAdBlocking() {
-    const updateInterval = setInterval(() => {
-        stats.blockedAds += Math.floor(Math.random() * 2);
-        stats.blockedPopups += Math.floor(Math.random() * 1);
-        stats.savedData += Math.random() * 0.2;
-        stats.savedTime += Math.random() * 0.5;
-        
-        updateStats();
-    }, 3000);
+            if (!urlInput.value.trim()) return;
 
-    return () => clearInterval(updateInterval);
-}
+            const tab = {
+                url: urlInput.value,
+                title: 'Cargando...'
+            };
+            tabs.push(tab);
+            currentTabIndex = tabs.length - 1;
+            updateTabs();
 
-function updateStats() {
-    document.getElementById('blockedAds').textContent = stats.blockedAds;
-    document.getElementById('blockedPopups').textContent = stats.blockedPopups;
-    document.getElementById('savedData').textContent = `${stats.savedData.toFixed(1)} MB`;
-    document.getElementById('savedTime').textContent = `${stats.savedTime.toFixed(1)}s`;
-}
+            overlay.style.display = 'flex';
+            iframe.src = tab.url;
+            iframe.onload = () => {
+                overlay.style.display = 'none';
+                try {
+                    tabs[currentTabIndex].title = iframe.contentDocument.title || tabs[currentTabIndex].url.split('/')[2];
+                    updateTabs();
+                } catch (e) {
+                    console.log('No se pudo acceder al título de la página');
+                }
+                blockAds();
+            };
+        }
 
-// Inicializar estadísticas
-updateStats();
+        function blockAds() {
+            const iframe = document.getElementById('webFrame');
+            const adBlockList = ['ads.google.com', 'doubleclick.net', 'pagead2.googlesyndication.com'];
 
-function toggleDnsModal() {
-    const modal = document.getElementById('dnsModal');
-    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-}
+            try {
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.tagName === 'SCRIPT' || node.tagName === 'IFRAME') {
+                                const src = node.src || '';
+                                if (adBlockList.some(domain => src.includes(domain))) {
+                                    node.remove();
+                                    stats.blockedAds++;
+                                    updateStats();
+                                }
+                            }
+                        });
+                    });
+                });
 
-function setDns(dns) {
-    currentDns = dns;
-    document.getElementById('currentDns').textContent = dns;
-    
-    // Update active state of DNS options
-    const options = document.querySelectorAll('.dns-option');
-    options.forEach(option => {
-        option.classList.toggle('active', option.textContent.includes(dns));
-    });
-    
-    // Reload current tab with new DNS
-    if (currentTabIndex !== -1) {
-        loadCurrentTab();
-    }
-}
-</script>
-</body></html>
+                observer.observe(iframe.contentWindow.document, { childList: true, subtree: true });
+            } catch (e) {
+                console.log('No se pudo bloquear anuncios');
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('blockedAdsCount').innerText = stats.blockedAds;
+        }
+
+        document.getElementById('themeSwitch').addEventListener('change', (e) => {
+            document.body.dataset.theme = e.target.checked ? 'dark' : 'light';
+        });
+    </script>
+</body>
+</html>
