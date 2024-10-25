@@ -6,6 +6,18 @@ toggleButton.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
 });
 
+// Función para cargar una URL en el iframe
+const loadUrlButton = document.getElementById('load-url-button');
+const urlInput = document.getElementById('url-input');
+const webFrame = document.getElementById('web-frame');
+
+loadUrlButton.addEventListener('click', () => {
+    const url = urlInput.value.trim();
+    if (url) {
+        webFrame.src = url.startsWith('http') ? url : `https://${url}`;
+    }
+});
+
 // Neutraliza scripts que verifican la carga de anuncios
 window.addEventListener('DOMContentLoaded', (event) => {
     // Sobrescribe ciertos métodos que usan los sitios para detectar adblock
@@ -23,6 +35,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Vuelve a intentar después de un tiempo para scripts cargados dinámicamente
     setTimeout(overwriteDetectionMethods, 2000);
 });
+
 // Función para cambiar DNS (Instrucción al usuario)
 function changeDNS(dns) {
     let dnsInfo = {

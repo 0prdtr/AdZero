@@ -15,6 +15,15 @@
     </header>
 
     <main>
+        <section class="web-viewer">
+            <h2>Secure Browsing</h2>
+            <div class="url-input">
+                <input type="text" id="url-input" placeholder="Enter website URL">
+                <button id="load-url-button">Load</button>
+            </div>
+            <iframe src="https://example.com" id="web-frame" sandbox="allow-same-origin allow-scripts"></iframe>
+        </section>
+
         <section class="dns-options">
             <h2>DNS Protection</h2>
             <select id="dns-selector" onchange="changeDNS(this.value)">
@@ -23,11 +32,6 @@
                 <option value="google">Google DNS</option>
                 <option value="cloudflare">Cloudflare DNS</option>
             </select>
-        </section>
-        
-        <section class="web-viewer">
-            <h2>Secure Browsing</h2>
-            <iframe src="https://example.com" id="web-frame" sandbox="allow-same-origin allow-scripts"></iframe>
         </section>
     </main>
 
