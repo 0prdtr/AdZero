@@ -1,4 +1,4 @@
-:root {
+:root { 
     --background-light: #f5f7fa;
     --background-dark: #2e2f33;
     --text-light: #1a1a1a;
@@ -55,13 +55,13 @@ button:hover {
 
 main {
     padding: 20px;
-    max-width: 800px;
+    max-width: 90%; /* Ajusta el contenido al 90% de la ventana */
     margin: auto;
 }
 
 input[type="text"] {
     padding: 10px;
-    width: 70%;
+    width: 65%; /* Un poco más estrecho para mejor compatibilidad en móviles */
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
@@ -72,15 +72,13 @@ input[type="text"] {
     padding: 10px 15px;
 }
 
-/* ...otras reglas CSS... */
-
 #web-frame {
-    width: 1200px; /* Añadí 'px' para la medida del ancho */
+    width: 100%; /* Ajustar el ancho a un 100% del contenedor principal */
     height: 600px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 10px auto; /* Esto centra el iframe horizontalmente */
-    display: block; /* Asegura que se comporte como un bloque */
+    margin: 10px auto;
+    display: block;
 }
 
 .dns-options, .web-viewer {
@@ -103,10 +101,12 @@ body.dark-mode input[type="text"] {
 body.dark-mode #web-frame {
     border-color: #555;
 }
+
 /* Ejemplo CSS para ocultar mensajes de detección de adblock */
 .adblock-message, .adblock-warning, #adblock-notification {
     display: none !important;
 }
+
 /* Estilos adicionales para evitar mensajes de detección */
 .adblock-message, 
 .adblock-warning, 
@@ -115,4 +115,38 @@ body.dark-mode #web-frame {
 .ad-content, 
 .ad-warning {
     display: none !important;
+}
+
+/* Media Queries para mejorar la adaptación en pantallas pequeñas */
+@media (max-width: 768px) {
+    .title {
+        font-size: 22px;
+    }
+    
+    #web-frame {
+        height: 400px; /* Ajustar altura del iframe para pantallas más pequeñas */
+    }
+
+    input[type="text"] {
+        width: 60%; /* Reducir el tamaño del input en pantallas pequeñas */
+    }
+
+    button {
+        padding: 8px 15px; /* Ajustar el tamaño de los botones en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 18px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    input[type="text"] {
+        width: 55%; /* Reducir aún más el tamaño del input */
+    }
 }
