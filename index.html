@@ -405,7 +405,7 @@
         let stats = {
             blockedAds: 0,
         };
-
+    
         function updateTabs() {
             const tabsContainer = document.querySelector('.tabs');
             tabsContainer.innerHTML = '';
@@ -417,14 +417,14 @@
                 tabsContainer.appendChild(tabButton);
             });
         }
-
+    
         function loadCurrentTab() {
             const urlInput = document.querySelector('.url-input');
             const iframe = document.getElementById('webFrame');
             const overlay = document.getElementById('loadingOverlay');
-
+    
             if (!urlInput.value.trim()) return;
-
+    
             const tab = {
                 url: urlInput.value,
                 title: 'Cargando...'
@@ -432,51 +432,61 @@
             tabs.push(tab);
             currentTabIndex = tabs.length - 1;
             updateTabs();
-
+    
+            // Mostrar overlay al iniciar carga
             overlay.style.display = 'flex';
             iframe.src = tab.url;
+    
+            // Asignar evento de carga del iframe
             iframe.onload = () => {
                 overlay.style.display = 'none';
+    
+                // Manejo seguro de errores de CORS
                 try {
                     tabs[currentTabIndex].title = iframe.contentDocument.title || tabs[currentTabIndex].url.split('/')[2];
-                    updateTabs();
                 } catch (e) {
-                    console.log('No se pudo acceder al título de la página');
+                    tabs[currentTabIndex].title = tabs[currentTabIndex].url.split('/')[2];
+                    console.warn('No se pudo acceder al contenido de la página por restricciones de seguridad.');
                 }
-                blockAds();
+                updateTabs();
             };
+    
+            iframe.onerror = () => {
+                overlay.style.display = 'none';
+                console.error('Error al cargar la página en el iframe.');
+            };
+    
+            blockAds();
         }
-
+    
         function blockAds() {
             const iframe = document.getElementById('webFrame');
             const adBlockList = ['ads.google.com', 'doubleclick.net', 'pagead2.googlesyndication.com'];
-
-            try {
-                const observer = new MutationObserver((mutations) => {
-                    mutations.forEach((mutation) => {
-                        mutation.addedNodes.forEach((node) => {
-                            if (node.tagName === 'SCRIPT' || node.tagName === 'IFRAME') {
-                                const src = node.src || '';
-                                if (adBlockList.some(domain => src.includes(domain))) {
-                                    node.remove();
-                                    stats.blockedAds++;
-                                    updateStats();
-                                }
-                            }
-                        });
+    
+            // Solo se puede bloquear anuncios en el mismo dominio
+            iframe.onload = () => {
+                try {
+                    const iframeDocument = iframe.contentDocument;
+                    const scriptsAndIframes = iframeDocument.querySelectorAll('script, iframe');
+    
+                    scriptsAndIframes.forEach(node => {
+                        const src = node.src || '';
+                        if (adBlockList.some(domain => src.includes(domain))) {
+                            node.remove();
+                            stats.blockedAds++;
+                            updateStats();
+                        }
                     });
-                });
-
-                observer.observe(iframe.contentWindow.document, { childList: true, subtree: true });
-            } catch (e) {
-                console.log('No se pudo bloquear anuncios');
-            }
+                } catch (e) {
+                    console.log('No se pudo bloquear anuncios o no se tienen permisos.');
+                }
+            };
         }
-
+    
         function updateStats() {
             document.getElementById('blockedAdsCount').innerText = stats.blockedAds;
         }
-
+    
         document.getElementById('themeSwitch').addEventListener('change', (e) => {
             document.body.dataset.theme = e.target.checked ? 'dark' : 'light';
         });
