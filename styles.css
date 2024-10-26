@@ -1,3 +1,5 @@
+/* styles.css */
+
 :root { 
     --background-light: #f5f7fa;
     --background-dark: #2e2f33;
@@ -73,7 +75,7 @@ input[type="text"] {
 }
 
 #web-frame {
-    width: 100%; /* Ajustar el ancho a un 100% del contenedor principal */
+    width: 100%;
     height: 600px;
     border: 1px solid #ccc;
     border-radius: 5px;

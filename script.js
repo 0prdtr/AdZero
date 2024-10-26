@@ -1,13 +1,21 @@
-// Código existente
-document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+// app.js
+
+// Alternar modo oscuro
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+darkModeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
-// Cargar URL en iframe
-document.getElementById('load-url-button').addEventListener('click', () => {
-    const url = document.getElementById('url-input').value;
+// Cargar la URL
+const loadUrlButton = document.getElementById('load-url-button');
+const urlInput = document.getElementById('url-input');
+const iframe = document.getElementById('web-frame');
+
+loadUrlButton.addEventListener('click', () => {
+    const url = urlInput.value.trim();
     if (url) {
-        document.getElementById('web-frame').src = url;
+        iframe.src = url.startsWith('http') ? url : `https://${url}`;
+        setTimeout(blockAds, 2000); // Esperar un tiempo para que se cargue la página y luego bloquear
     }
 });
 
@@ -25,29 +33,25 @@ function goFullscreen() {
     }
 }
 
-// Bloqueador avanzado de anuncios
-function advancedAdBlock() {
-    // Array de selectores CSS comúnmente utilizados por anuncios y pop-ups avanzados
+// Bloqueo básico de elementos sospechosos
+function blockAds() {
     const adSelectors = [
-        '.ad', 
-        '.advertisement', 
-        '[id*="ad"]', 
-        '[class*="ad"]', 
-        '[class*="banner"]', 
-        '[id*="popup"]',
-        '.modal',
-        '[class*="popup"]',
-        '[id*="modal"]',
-        '[class*="sponsored"]',
-        '[class*="promo"]',
-        '.ad-content'
+        '.ad-banner', // Selectores comunes de anuncios
+        '.pop-up',
+        '.sponsored-content',
+        '#ad-content',
+        '.advertisement',
+        'iframe[src*="ads"]',
+        'img[src*="ads"]'
     ];
 
-    // Eliminar elementos seleccionados del DOM
     adSelectors.forEach(selector => {
-        const ads = document.querySelectorAll(selector);
-        ads.forEach(ad => ad.remove());
+        const ads = iframe.contentWindow.document.querySelectorAll(selector);
+        ads.forEach(ad => {
+            ad.style.display = 'none'; // Ocultar los elementos detectados
+        });
     });
+}
 
     // Observador de mutación para eliminar elementos nuevos que aparezcan después de cargar la página
     const observer = new MutationObserver((mutations) => {
