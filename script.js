@@ -214,3 +214,48 @@ function applyBlockListFromServer(blockList) {
 }
 
 updateBlockList();
+
+// Observador de mutaciones para detectar y eliminar anuncios dinámicos
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1) { // Si el nodo es un elemento
+                // Identificar y eliminar anuncios específicos de Winbet
+                if (node.matches('#winbet-banner, .winbet-ad, .winbet-footer-ad, .winbet-image, .winbet-video, iframe[src*="winbet.com"]')) {
+                    node.remove();
+                }
+
+                // Ocultar contenedores de anuncios de video o reproductores con publicidad
+                if (node.matches('.video-ad, .winbet-video-container, .winbet-player-overlay')) {
+                    node.style.display = 'none';
+                }
+            }
+        });
+    });
+});
+
+// Configuración del observador para observar todos los elementos hijos del cuerpo
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// Sobrescribir el método fetch para bloquear peticiones a dominios específicos
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+    if (args[0].includes("winbet.com")) {
+        console.warn("Blocked request to:", args[0]);
+        return new Promise((resolve, reject) => reject("Blocked"));
+    }
+    return originalFetch.apply(this, args);
+};
+
+// Sobrescribir XMLHttpRequest para bloquear solicitudes de anuncios
+const originalOpen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function() {
+    if (arguments[1].includes("winbet.com")) {
+        console.warn("Blocked XMLHttpRequest to:", arguments[1]);
+        return;
+    }
+    originalOpen.apply(this, arguments);
+};

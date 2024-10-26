@@ -117,6 +117,29 @@ body.dark-mode #web-frame {
     display: none !important;
 }
 
+/* Ejemplo de regla CSS para ocultar banners e imágenes de anuncios específicos */
+#winbet-banner, .winbet-ad, .winbet-footer-ad, .winbet-image, .winbet-video {
+    display: none !important;
+}
+
+/* Ocultar contenedores de anuncios que usan etiquetas iframe */
+iframe[src*="winbet.com"], iframe[class*="ad-frame"], [src*="winbet.com"] {
+    display: none !important;
+    width: 0;
+    height: 0;
+}
+
+/* Reglas específicas para ocultar anuncios de video */
+.video-ad, .winbet-video-container, .winbet-player-overlay {
+    display: none !important;
+}
+
+/* Oculte banners adhesivos en la parte inferior de la página */
+.fixed-footer, .sticky-ad {
+    display: none !important;
+}
+
+
 /* Media Queries para mejorar la adaptación en pantallas pequeñas */
 @media (max-width: 768px) {
     .title {
