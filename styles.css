@@ -117,28 +117,14 @@ body.dark-mode #web-frame {
     display: none !important;
 }
 
-/* Ejemplo de regla CSS para ocultar banners e imágenes de anuncios específicos */
-#betwinner-banner, .betwinner-ad, .betwinner-footer-ad, .betwinner-image, .betwinner-video {
+/* Ocultar cualquier banner o contenedor relacionado con el enlace */
+img[src*="mergegameapp.onelink.me"], 
+iframe[src*="mergegameapp.onelink.me"], 
+a[href*="mergegameapp.onelink.me"], 
+div[class*="ad-container"], 
+.video-ad {
     display: none !important;
 }
-
-/* Ocultar contenedores de anuncios que usan etiquetas iframe */
-iframe[src*="betwinner.com"], iframe[class*="ad-frame"], [src*="betwinner.com"] {
-    display: none !important;
-    width: 0;
-    height: 0;
-}
-
-/* Reglas específicas para ocultar anuncios de video */
-.video-ad, .betwinner-video-container, .betwinner-player-overlay {
-    display: none !important;
-}
-
-/* Oculte banners adhesivos en la parte inferior de la página */
-.fixed-footer, .sticky-ad {
-    display: none !important;
-}
-
 
 /* Media Queries para mejorar la adaptación en pantallas pequeñas */
 @media (max-width: 768px) {

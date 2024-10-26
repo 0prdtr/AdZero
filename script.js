@@ -215,19 +215,34 @@ function applyBlockListFromServer(blockList) {
 
 updateBlockList();
 
+// Sobrescribir el método fetch para bloquear peticiones a dominios específicos
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+    if (args[0].includes("onelink.me")) {
+        console.warn("Blocked request to:", args[0]);
+        return new Promise((resolve, reject) => reject("Blocked"));
+    }
+    return originalFetch.apply(this, args);
+};
+
+// Sobrescribir XMLHttpRequest para bloquear solicitudes de anuncios
+const originalOpen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function() {
+    if (arguments[1].includes("onelink.me")) {
+        console.warn("Blocked XMLHttpRequest to:", arguments[1]);
+        return;
+    }
+    originalOpen.apply(this, arguments);
+};
+
 // Observador de mutaciones para detectar y eliminar anuncios dinámicos
 const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
         mutation.addedNodes.forEach(node => {
             if (node.nodeType === 1) { // Si el nodo es un elemento
-                // Identificar y eliminar anuncios específicos de betwinner
-                if (node.matches('#betwinner-banner, .betwinner-ad, .betwinner-footer-ad, .betwinner-image, .betwinner-video, iframe[src*="betwinner.com"]')) {
+                // Eliminar cualquier elemento que tenga un enlace al dominio onelink.me
+                if (node.matches('img[src*="mergegameapp.onelink.me"], iframe[src*="mergegameapp.onelink.me"], a[href*="mergegameapp.onelink.me"], .video-ad')) {
                     node.remove();
-                }
-
-                // Ocultar contenedores de anuncios de video o reproductores con publicidad
-                if (node.matches('.video-ad, .betwinner-video-container, .betwinner-player-overlay')) {
-                    node.style.display = 'none';
                 }
             }
         });
@@ -239,23 +254,3 @@ observer.observe(document.body, {
     childList: true,
     subtree: true
 });
-
-// Sobrescribir el método fetch para bloquear peticiones a dominios específicos
-const originalFetch = window.fetch;
-window.fetch = function(...args) {
-    if (args[0].includes("betwinner.com")) {
-        console.warn("Blocked request to:", args[0]);
-        return new Promise((resolve, reject) => reject("Blocked"));
-    }
-    return originalFetch.apply(this, args);
-};
-
-// Sobrescribir XMLHttpRequest para bloquear solicitudes de anuncios
-const originalOpen = XMLHttpRequest.prototype.open;
-XMLHttpRequest.prototype.open = function() {
-    if (arguments[1].includes("betwinner.com")) {
-        console.warn("Blocked XMLHttpRequest to:", arguments[1]);
-        return;
-    }
-    originalOpen.apply(this, arguments);
-};
