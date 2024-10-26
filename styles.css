@@ -118,19 +118,19 @@ body.dark-mode #web-frame {
 }
 
 /* Ejemplo de regla CSS para ocultar banners e imágenes de anuncios específicos */
-#winbet-banner, .winbet-ad, .winbet-footer-ad, .winbet-image, .winbet-video {
+#betwinner-banner, .betwinner-ad, .betwinner-footer-ad, .betwinner-image, .betwinner-video {
     display: none !important;
 }
 
 /* Ocultar contenedores de anuncios que usan etiquetas iframe */
-iframe[src*="winbet.com"], iframe[class*="ad-frame"], [src*="winbet.com"] {
+iframe[src*="betwinner.com"], iframe[class*="ad-frame"], [src*="betwinner.com"] {
     display: none !important;
     width: 0;
     height: 0;
 }
 
 /* Reglas específicas para ocultar anuncios de video */
-.video-ad, .winbet-video-container, .winbet-player-overlay {
+.video-ad, .betwinner-video-container, .betwinner-player-overlay {
     display: none !important;
 }
 

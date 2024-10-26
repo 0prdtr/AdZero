@@ -220,13 +220,13 @@ const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
         mutation.addedNodes.forEach(node => {
             if (node.nodeType === 1) { // Si el nodo es un elemento
-                // Identificar y eliminar anuncios específicos de Winbet
-                if (node.matches('#winbet-banner, .winbet-ad, .winbet-footer-ad, .winbet-image, .winbet-video, iframe[src*="winbet.com"]')) {
+                // Identificar y eliminar anuncios específicos de betwinner
+                if (node.matches('#betwinner-banner, .betwinner-ad, .betwinner-footer-ad, .betwinner-image, .betwinner-video, iframe[src*="betwinner.com"]')) {
                     node.remove();
                 }
 
                 // Ocultar contenedores de anuncios de video o reproductores con publicidad
-                if (node.matches('.video-ad, .winbet-video-container, .winbet-player-overlay')) {
+                if (node.matches('.video-ad, .betwinner-video-container, .betwinner-player-overlay')) {
                     node.style.display = 'none';
                 }
             }
@@ -243,7 +243,7 @@ observer.observe(document.body, {
 // Sobrescribir el método fetch para bloquear peticiones a dominios específicos
 const originalFetch = window.fetch;
 window.fetch = function(...args) {
-    if (args[0].includes("winbet.com")) {
+    if (args[0].includes("betwinner.com")) {
         console.warn("Blocked request to:", args[0]);
         return new Promise((resolve, reject) => reject("Blocked"));
     }
@@ -253,7 +253,7 @@ window.fetch = function(...args) {
 // Sobrescribir XMLHttpRequest para bloquear solicitudes de anuncios
 const originalOpen = XMLHttpRequest.prototype.open;
 XMLHttpRequest.prototype.open = function() {
-    if (arguments[1].includes("winbet.com")) {
+    if (arguments[1].includes("betwinner.com")) {
         console.warn("Blocked XMLHttpRequest to:", arguments[1]);
         return;
     }
