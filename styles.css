@@ -150,3 +150,13 @@ body.dark-mode #web-frame {
         width: 55%; /* Reducir aún más el tamaño del input */
     }
 }
+
+/* Ocultar elementos de publicidad basados en clases y IDs comunes */
+.ad, .advertisement, [id^="ad"], [class*="promo"], .sponsored, .banner, .pop-up, .modal {
+    display: none !important;
+}
+
+/* Reglas adicionales para ocultar cuadros de advertencia de detección */
+.adblock-detected, .ad-warning, .adblock-message {
+    display: none !important;
+}

@@ -135,3 +135,82 @@ function changeDNS(dns) {
     });
     observer.observe(document.body, { childList: true, subtree: true });
 })();
+
+// Función para aplicar filtros basados en listas de bloqueo
+function applyBlockList() {
+    const blockList = [
+        "*://*.doubleclick.net/*",
+        "*://*.ads.example.com/*",
+        "*://*.tracking.example.net/*",
+    ];
+
+    // Bloquear URLs específicas basadas en la lista
+    blockList.forEach(pattern => {
+        const regex = new RegExp(pattern.replace(/\*/g, ".*").replace(/\./g, "\\."));
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function() {
+            if (regex.test(arguments[1])) {
+                console.warn("Blocked request to:", arguments[1]);
+                return;
+            }
+            originalOpen.apply(this, arguments);
+        };
+    });
+}
+
+applyBlockList();
+
+// Sobrescribir métodos de detección de adblock conocidos
+(function() {
+    // Sobrescribir la función global de detección de AdBlock si existe
+    if (window.adblockDetected) {
+        window.adblockDetected = function() {
+            console.log("Adblock detection function overridden.");
+        };
+    }
+
+    // Observador de mutación para ocultar mensajes de anti-bloqueo
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) { // Si el nodo es un elemento
+                    if (node.classList && (node.classList.contains('adblock-message') || node.classList.contains('adblock-warning'))) {
+                        node.remove(); // Eliminar nodo si coincide con clases conocidas
+                    }
+                }
+            });
+        });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+
+// Función para descargar y aplicar listas de bloqueo desde un servidor remoto
+async function updateBlockList() {
+    try {
+        const response = await fetch('https://example.com/blocklist.txt');
+        const blockListText = await response.text();
+        
+        // Procesar y aplicar las reglas de bloqueo (similar a applyBlockList)
+        const blockList = blockListText.split('\n').filter(line => line && !line.startsWith('!'));
+        applyBlockListFromServer(blockList);
+    } catch (error) {
+        console.error("Failed to update block list:", error);
+    }
+}
+
+function applyBlockListFromServer(blockList) {
+    blockList.forEach(pattern => {
+        const regex = new RegExp(pattern.replace(/\*/g, ".*").replace(/\./g, "\\."));
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function() {
+            if (regex.test(arguments[1])) {
+                console.warn("Blocked request to:", arguments[1]);
+                return;
+            }
+            originalOpen.apply(this, arguments);
+        };
+    });
+}
+
+updateBlockList();
