@@ -52,7 +52,7 @@ function blockAds() {
         });
     });
 }
-
+    
     // Observador de mutación para eliminar elementos nuevos que aparezcan después de cargar la página
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
