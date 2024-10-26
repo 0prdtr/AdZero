@@ -87,3 +87,37 @@ function changeDNS(dns) {
     };
     alert(`To change DNS, please configure it manually in your device settings.\n\nSelected: ${dnsInfo[dns] || "Default"}`);
 }
+
+// Este script se inyecta en la página cargada para evitar técnicas anti-bloqueo de anuncios
+(function() {
+    // Sobrescribe la función `adblockDetected` utilizada por algunos sitios para detectar AdBlock
+    window.adblockDetected = function() {
+        console.log("Bypassing adblock detection...");
+        // O realiza alguna otra acción para anular la detección
+    };
+
+    // Eliminar mensajes de anti-bloqueo conocidos
+    const antiAdBlockSelectors = [
+        '#adblock-popup', '.adblock-modal', '[id*="anti-ad"]'
+    ];
+    antiAdBlockSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => el.remove());
+    });
+
+    // Observador de mutación para detectar nuevos elementos de detección de bloqueadores de anuncios
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                    antiAdBlockSelectors.forEach(selector => {
+                        if (node.matches(selector) || node.querySelector(selector)) {
+                            node.remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
