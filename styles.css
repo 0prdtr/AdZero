@@ -72,14 +72,34 @@ input[type="text"] {
     padding: 10px 15px;
 }
 
+#iframe-container {
+    position: relative;
+}
+
 #web-frame {
-    width: 100%; /* Ajustar el ancho a un 100% del contenedor principal */
+    width: 100%;
     height: 600px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 10px auto;
     display: block;
 }
+
+#fullscreen-button, #exit-fullscreen-button {
+    padding: 8px 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#exit-fullscreen-button {
+    display: none; /* Oculto inicialmente */
+}
+
 
 .dns-options, .web-viewer {
     margin-top: 20px;

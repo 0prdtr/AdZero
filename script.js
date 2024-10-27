@@ -3,11 +3,51 @@ document.getElementById('dark-mode-toggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
-// Cargar URL en iframe
+// Cargar la URL en el iframe
 document.getElementById('load-url-button').addEventListener('click', () => {
-    const url = document.getElementById('url-input').value;
-    if (url) {
-        document.getElementById('web-frame').src = url;
+    let url = document.getElementById('url-input').value.trim();
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+    }
+    document.getElementById('web-frame').src = url;
+});
+
+// Pantalla completa para el iframe
+const iframeContainer = document.getElementById('iframe-container');
+const fullscreenButton = document.getElementById('fullscreen-button');
+const exitFullscreenButton = document.getElementById('exit-fullscreen-button');
+
+// Entrar a pantalla completa
+fullscreenButton.addEventListener('click', () => {
+    if (iframeContainer.requestFullscreen) {
+        iframeContainer.requestFullscreen();
+    } else if (iframeContainer.webkitRequestFullscreen) { // Safari
+        iframeContainer.webkitRequestFullscreen();
+    } else if (iframeContainer.msRequestFullscreen) { // IE11
+        iframeContainer.msRequestFullscreen();
+    }
+    fullscreenButton.style.display = 'none';
+    exitFullscreenButton.style.display = 'block';
+});
+
+// Salir de pantalla completa
+exitFullscreenButton.addEventListener('click', () => {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { // Safari
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE11
+        document.msExitFullscreen();
+    }
+    fullscreenButton.style.display = 'block';
+    exitFullscreenButton.style.display = 'none';
+});
+
+// Detectar cambio de pantalla completa y ajustar los botones
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        fullscreenButton.style.display = 'block';
+        exitFullscreenButton.style.display = 'none';
     }
 });
 
