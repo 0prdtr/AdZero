@@ -26,6 +26,7 @@ fullscreenButton.addEventListener('click', () => {
     } else if (iframeContainer.msRequestFullscreen) { // IE11
         iframeContainer.msRequestFullscreen();
     }
+    iframeContainer.classList.add('fullscreen'); // Añade la clase para ocupar toda la pantalla
     fullscreenButton.style.display = 'none';
     exitFullscreenButton.style.display = 'block';
 });
@@ -39,6 +40,7 @@ exitFullscreenButton.addEventListener('click', () => {
     } else if (document.msExitFullscreen) { // IE11
         document.msExitFullscreen();
     }
+    iframeContainer.classList.remove('fullscreen'); // Remueve la clase para volver al tamaño normal
     fullscreenButton.style.display = 'block';
     exitFullscreenButton.style.display = 'none';
 });
@@ -46,6 +48,7 @@ exitFullscreenButton.addEventListener('click', () => {
 // Detectar cambio de pantalla completa y ajustar los botones
 document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) {
+        iframeContainer.classList.remove('fullscreen'); // Remueve la clase al salir de pantalla completa
         fullscreenButton.style.display = 'block';
         exitFullscreenButton.style.display = 'none';
     }
