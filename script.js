@@ -54,20 +54,6 @@ document.addEventListener('fullscreenchange', () => {
     }
 });
 
-// Función para activar pantalla completa en el iframe
-function goFullscreen() {
-    const iframe = document.getElementById('web-frame');
-    if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-    } else if (iframe.mozRequestFullScreen) { // Firefox
-        iframe.mozRequestFullScreen();
-    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari y Opera
-        iframe.webkitRequestFullscreen();
-    } else if (iframe.msRequestFullscreen) { // Edge e Internet Explorer
-        iframe.msRequestFullscreen();
-    }
-}
-
 // Bloqueador avanzado de anuncios
 function advancedAdBlock() {
     // Array de selectores CSS comúnmente utilizados por anuncios y pop-ups avanzados
