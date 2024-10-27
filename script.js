@@ -13,20 +13,20 @@ document.getElementById('load-url-button').addEventListener('click', () => {
 });
 
 // Pantalla completa para el iframe
-const iframeContainer = document.getElementById('iframe-container');
+const iframe = document.getElementById('web-frame');
 const fullscreenButton = document.getElementById('fullscreen-button');
 const exitFullscreenButton = document.getElementById('exit-fullscreen-button');
 
 // Entrar a pantalla completa
 fullscreenButton.addEventListener('click', () => {
-    if (iframeContainer.requestFullscreen) {
-        iframeContainer.requestFullscreen();
-    } else if (iframeContainer.webkitRequestFullscreen) { // Safari
-        iframeContainer.webkitRequestFullscreen();
-    } else if (iframeContainer.msRequestFullscreen) { // IE11
-        iframeContainer.msRequestFullscreen();
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    } else if (iframe.webkitRequestFullscreen) { // Safari
+        iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) { // IE11
+        iframe.msRequestFullscreen();
     }
-    iframeContainer.classList.add('fullscreen'); // Añade la clase para ocupar toda la pantalla
+    iframe.classList.add('fullscreen'); // Añade la clase para ocupar toda la pantalla
     fullscreenButton.style.display = 'none';
     exitFullscreenButton.style.display = 'block';
 });
@@ -40,7 +40,7 @@ exitFullscreenButton.addEventListener('click', () => {
     } else if (document.msExitFullscreen) { // IE11
         document.msExitFullscreen();
     }
-    iframeContainer.classList.remove('fullscreen'); // Remueve la clase para volver al tamaño normal
+    iframe.classList.remove('fullscreen'); // Remueve la clase para volver al tamaño normal
     fullscreenButton.style.display = 'block';
     exitFullscreenButton.style.display = 'none';
 });
@@ -48,7 +48,7 @@ exitFullscreenButton.addEventListener('click', () => {
 // Detectar cambio de pantalla completa y ajustar los botones
 document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) {
-        iframeContainer.classList.remove('fullscreen'); // Remueve la clase al salir de pantalla completa
+        iframe.classList.remove('fullscreen'); // Remueve la clase al salir de pantalla completa
         fullscreenButton.style.display = 'block';
         exitFullscreenButton.style.display = 'none';
     }
