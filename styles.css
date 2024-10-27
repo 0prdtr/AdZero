@@ -113,11 +113,6 @@ input[type="text"] {
     display: none; /* Oculto inicialmente */
 }
 
-
-.dns-options, .web-viewer {
-    margin-top: 20px;
-}
-
 body.dark-mode {
     background-color: var(--background-dark);
     color: var(--text-dark);
@@ -201,4 +196,29 @@ div[class*="ad-container"],
 /* Reglas adicionales para ocultar cuadros de advertencia de detección */
 .adblock-detected, .ad-warning, .adblock-message {
     display: none !important;
+}
+
+button#dns-options {
+    padding: 10px 20px;
+    background-color: var(#4CAF50);
+    color: white;
+    border: none;
+    border-radius: 8px; /* Bordes redondeados para un diseño más moderno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Efecto suave al interactuar */
+}
+
+/* Efecto al pasar el ratón */
+button#dns-options:hover {
+    background-color: var(#45a049);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Aumentar la sombra al pasar el ratón */
+}
+
+/* Efecto al hacer clic */
+button#dns-options:active {
+    transform: scale(0.98); /* Pequeño efecto de "presionado" */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Reducir la sombra en estado activo */
 }
