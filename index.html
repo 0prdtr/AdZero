@@ -16,18 +16,18 @@
 
     <main>
         <section class="web-viewer">
-            <h2>Secure Browsing</h2>
-            <div class="url-input">
-                <input type="text" id="url-input" placeholder="Enter website URL">
-                <button id="load-url-button">Load</button>
+            <input type="text" id="url-input" placeholder="Enter a URL to load...">
+            <button id="load-url-button">Load URL</button>
+
+            <div id="iframe-container">
+                <iframe id="web-frame">
+                    width="100%" 
+                    height="600" 
+                    frameborder="0" 
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-modals allow-forms allow-presentation" 
+                    allow="fullscreen">
+                </iframe>
             </div>
-            <iframe id="web-frame" src="https://example.com" 
-                width="100%" 
-                height="600" 
-                frameborder="0" 
-                sandbox="allow-scripts allow-same-origin allow-popups allow-modals allow-forms allow-presentation" 
-                allow="fullscreen">
-            </iframe>
 
             <button id="fullscreen-button">Fullscreen</button>
             <button id="exit-fullscreen-button" style="display: none;">Exit Fullscreen</button>
