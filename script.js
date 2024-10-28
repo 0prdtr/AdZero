@@ -121,16 +121,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     setTimeout(overwriteDetectionMethods, 2000);
 });
 
-// Función para cambiar DNS (Instrucción al usuario)
-function changeDNS(dns) {
-    let dnsInfo = {
-        adguard: "AdGuard DNS: 176.103.130.130",
-        google: "Google DNS: 8.8.8.8",
-        cloudflare: "Cloudflare DNS: 1.1.1.1"
-    };
-    alert(`To change DNS, please configure it manually in your device settings.\n\nSelected: ${dnsInfo[dns] || "Default"}`);
-}
-
 // Este script se inyecta en la página cargada para evitar técnicas anti-bloqueo de anuncios
 (function() {
     // Sobrescribe la función `adblockDetected` utilizada por algunos sitios para detectar AdBlock
@@ -283,3 +273,13 @@ observer.observe(document.body, {
     childList: true,
     subtree: true
 });
+
+// Función para cambiar DNS (Instrucción al usuario)
+function changeDNS(dns) {
+    let dnsInfo = {
+        adguard: "AdGuard DNS: 176.103.130.130",
+        google: "Google DNS: 8.8.8.8",
+        cloudflare: "Cloudflare DNS: 1.1.1.1"
+    };
+    alert(`To change DNS, please configure it manually in your device settings.\n\nSelected: ${dnsInfo[dns] || "Default"}`);
+}
